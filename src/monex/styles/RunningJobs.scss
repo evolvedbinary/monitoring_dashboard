@@ -1,0 +1,19 @@
+.RunningJobs {
+    grid-area: jobs;
+    padding: 1rem;
+    color: $white;
+    margin: 0.5rem;
+
+    &--element {
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin-top: 0.2rem;
+        background: $light-background;
+        display: grid;
+        grid-template-columns: 3fr 1fr 2fr;
+        grid-template-rows: auto;
+    }
+    &--element:nth-child(odd) {
+        background: $dark-background;
+    }
+}

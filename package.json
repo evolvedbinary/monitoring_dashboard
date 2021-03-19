@@ -1,0 +1,24 @@
+{
+  "name": "monex",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "snowpack dev"
+  },
+  "dependencies": {
+    "chart.js": "^2.9.4",
+    "material-design-icons": "^3.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "rxjs": "^6.6.6"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-sass": "^1.3.0",
+    "@types/chart.js": "^2.9.31",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "ngrok": "^3.4.0",
+    "snowpack": "^3.0.13"
+  }
+}
