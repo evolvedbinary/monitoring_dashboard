@@ -1,0 +1,38 @@
+
+
+.danger {
+    background: #ec4646;
+}
+
+.warnning {
+    background: #EF7B45;
+}
+
+.healthy {
+    background: rgb(97, 177, 90);
+}
+
+.state {
+    &-widget {
+        flex: 1;
+        // flex-grow: 1;
+        padding: 1rem;
+        border-radius: 5px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        position: relative;
+    }
+
+    &-title {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+        white-space: nowrap;
+    }
+    &-value {
+        font-size: 4rem;
+    }
+}

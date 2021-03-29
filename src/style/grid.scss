@@ -1,0 +1,19 @@
+.grid {
+    color: #e9e8e8;
+    display: grid;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: flex-start;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-areas: 
+    "DBState DBState DBState dbActions"
+    "memoryChart memoryChart memoryChart diskSpace "
+    "memoryChart memoryChart memoryChart dbHealth"
+    "memoryChart memoryChart memoryChart .";
+
+    & > * {
+        background: #1f1f1f;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+}
