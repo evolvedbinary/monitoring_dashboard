@@ -1,0 +1,10 @@
+.db-state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-basis: 1;
+  padding: 0 1rem;
+}
+.db-state__header {
+  text-align: center;
+}

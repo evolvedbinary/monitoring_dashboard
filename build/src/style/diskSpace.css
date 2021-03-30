@@ -1,0 +1,14 @@
+.disk-space {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: 1.6rem;
+  position: relative;
+}
+.disk-space__precentage {
+  position: absolute;
+  content: "";
+  bottom: 1.5rem;
+  font-size: 3rem;
+  z-index: 1;
+}

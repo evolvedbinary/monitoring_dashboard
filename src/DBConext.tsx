@@ -1,6 +1,3 @@
 import {createContext} from 'react';
 
-export const DBContext = createContext({
-    pause:false,
-    trace:false,
-});
+export const DBContext = createContext(null);

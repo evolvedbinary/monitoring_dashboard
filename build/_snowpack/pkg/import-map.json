@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "chart.js": "./chartjs.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js",
+    "rxjs": "./rxjs.js"
+  }
+}

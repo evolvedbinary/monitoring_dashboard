@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #161616;
+}
+
+h3 {
+  font-weight: 300;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.grid {
+  color: #e9e8e8;
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: flex-start;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "DBState DBState DBState dbActions" "memoryChart memoryChart memoryChart diskSpace " "memoryChart memoryChart memoryChart dbHealth" "memoryChart memoryChart memoryChart .";
+}
+.grid > * {
+  background: #1f1f1f;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.db-state {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-basis: 1;
+  padding: 0 1rem;
+}
+.db-state__header {
+  text-align: center;
+}
+
+.danger {
+  background: #ec4646;
+}
+
+.warnning {
+  background: #EF7B45;
+}
+
+.healthy {
+  background: #61b15a;
+}
+
+.state-widget {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: relative;
+}
+.state-title {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
+.state-value {
+  font-size: 4rem;
+}
+
+.disk-space {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-size: 1.6rem;
+  position: relative;
+}
+.disk-space__precentage {
+  position: absolute;
+  content: "";
+  bottom: 1.5rem;
+  font-size: 3rem;
+  z-index: 1;
+}
+
+.db-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "trace pause" "clear clear";
+  gap: 15px;
+}
+
+.db-button {
+  padding: 0.5rem;
+  background: #2D2D2D;
+  border-radius: 5px;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.db-button i {
+  margin-top: 0.25rem;
+}
+.db-button__clicked {
+  box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  color: #2d2d2d;
+  background: #e9e8e8;
+}
+.db-button:hover {
+  filter: brightness(1.3);
+  font-size: 2.1rem;
+}
