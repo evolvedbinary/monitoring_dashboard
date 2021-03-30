@@ -47,6 +47,12 @@ const monitor = {
     subject.complete();
     return monitor;
   },
+  pause() {
+    if (done) {
+      done();
+    }
+    return monitor;
+  },
   subscribe(next?: (value: any) => void, error?: (error: any) => void, complete?: () => void) {
     return subject.subscribe(next, error, complete);
   },

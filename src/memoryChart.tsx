@@ -102,7 +102,7 @@ const MemoryChart = (props) => {
         const chartInstance = new Chart(chartRef.current, chartOptions);
 
         
-        Memory.subscribe(v => {
+        const subscription = Memory.subscribe(v => {
 
             const heap = v.heapMemoryUsage;
             const Nheap = v.nonHeapMemoryUsage;
@@ -134,8 +134,9 @@ const MemoryChart = (props) => {
         }
            
         return () => {
+            subscription.unsubscribe();
             chartInstance.destroy();
-            Memory.stop();
+            Memory.pause();
         }
     },[monitor]);
 
