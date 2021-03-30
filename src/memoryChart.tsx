@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Chart } from 'chart.js';
 import Memory from './api/memory';
+import { DBContext } from './DBConext';
 
 const chartOptions: Chart.ChartConfiguration = {
     type: 'line',
@@ -93,6 +94,7 @@ const chartOptions: Chart.ChartConfiguration = {
 };
 
 const MemoryChart = (props) => {
+    const {monitor, setMonitor} = useContext(DBContext);
     const chartRef = useRef<HTMLCanvasElement>(null);
     const [chart, setChart] = useState(null);
     useEffect(() => {
@@ -101,6 +103,7 @@ const MemoryChart = (props) => {
 
         
         Memory.subscribe(v => {
+
             const heap = v.heapMemoryUsage;
             const Nheap = v.nonHeapMemoryUsage;
 
@@ -125,18 +128,20 @@ const MemoryChart = (props) => {
                 duration:0
             });
 
-        })
-        Memory.start();
-        
+        });
+        if(!monitor.pause) {
+            Memory.start();
+        }
+           
         return () => {
             chartInstance.destroy();
+            Memory.stop();
         }
-    },[]);
+    },[monitor]);
 
     const style: React.CSSProperties = {
         gridArea: props.gridArea,
     }
-    console.log(props.gridArea);
     
     return (
         <div className="memory-chart" style={style}>
