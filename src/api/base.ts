@@ -16,3 +16,6 @@ export function DUMMY_SERVER(callback: (callbackIndex: number, v: number[]) => v
   }, interval * 1000);
   return () => clearInterval(intervalId);
 }
+export function randomBetween(a: number, b: number) {
+  return Math.floor(Math.random() * (b - a + 1)) + a
+}

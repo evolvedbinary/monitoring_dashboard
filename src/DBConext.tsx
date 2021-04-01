@@ -1,3 +1,12 @@
-import {createContext} from 'react';
+import {createContext, Dispatch} from 'react';
+import { Monitor } from './api/monitor';
 
-export const DBContext = createContext(null);
+export interface MonitorContext{
+  monitor: Monitor;
+  trace: boolean;
+  pause: boolean;
+};
+export const DBContext = createContext<{
+  monitorContext: MonitorContext;
+  setMonitorContext: Dispatch<MonitorContext>;
+}>(null);
