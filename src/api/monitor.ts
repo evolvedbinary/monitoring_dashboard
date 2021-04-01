@@ -1,4 +1,5 @@
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { bufferTime, filter } from 'rxjs/operators';
 import { MonitoringApi } from './api';
 import { randomBetween } from './base';
 import { Monitoring } from './classes';
@@ -8,7 +9,7 @@ export interface MonitorSubjects {
   [Monitoring.DataTypeName.connection]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.connection>>;
   [Monitoring.DataTypeName.disk]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.disk>>;
   [Monitoring.DataTypeName.memory]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.memory>>;
-  [Monitoring.DataTypeName.querie]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.querie>>;
+  [Monitoring.DataTypeName.query]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.query>>;
   [Monitoring.DataTypeName.thread]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.thread>>;
 }
 export type MonitorIntervals =  Partial<Record<Monitoring.DataTypeName, number>>;
@@ -18,6 +19,8 @@ export class Monitor {
   private api: MonitoringApi;
   private subject = new Subject<Monitoring.DataType>();
   private subSubjects: MonitorSubjects = {};
+  private tickerSubject: Subject<Monitoring.DataTypeName>;
+  private ticker: Observable<Monitoring.DataTypeName[]>;
   private intervals: MonitorIntervals = {};
   private ticks: MonitorIntervals = {};
   private running = false;
@@ -32,44 +35,17 @@ export class Monitor {
   }
   constructor(private endpoint: string) {
     console.log('monitor created at: ' + endpoint);
-    this.api = new MonitoringApi(this.response);
+    this.api = new MonitoringApi(this.response.bind(this));
+    this.tickerSubject = new Subject<Monitoring.DataTypeName>();
+    this.ticker = this.tickerSubject.pipe(
+      bufferTime(500),
+      filter(types => types.length > 0)
+    );
+    this.ticker.subscribe(types => this.api.request(...types.filter((type, i) => i === types.indexOf(type))));
   }
   dispose() {
     Object.keys(this.subSubjects).map(type => this.subSubjects[type]).forEach(subject => subject.complete());
     this.subject.complete();
-  }
-
-  tick() {
-    this.lastTick = Date.now();
-    this.running = false;
-    const keys = Object.keys(this.ticks) as Monitoring.DataTypeName[];
-    const requests: Monitoring.DataTypeName[] = [];
-    console.log('tick started for:', keys.length);
-    if (keys.length) {
-      const next = keys
-      .map(type => {
-          console.log('  - next tick for ' + type + ' is after ' + this.ticks[type].toString());
-          if (this.ticks[type] <= 0) {
-            console.log('    - tick ' + type + ' is due, running again after ' + this.intervals[type].toString());
-            this.ticks[type] = this.intervals[type];
-            requests.push(type);
-          }
-          return [type, this.ticks[type]] as [Monitoring.DataTypeName, number];
-        })
-        .sort((a, b) => {
-          return a[1] - b[1];
-        })
-        .map((value) => {
-          console.log('  - new order: ' + value[0] + ' after ' + value[1].toString());
-          return value;
-        })
-        .find(([type, tick]) => tick > 0);
-      console.log('  - set to run after: ' + next[1].toString());
-      keys.forEach(type => this.ticks[type] = this.ticks[type] - next[1]);
-      setTimeout(this.tick.bind(this), next[1] * 1000);
-      this.nextTick = this.lastTick + 1000;
-      this.running = true;
-    }
   }
 
   private getSubject<Type extends Monitoring.DataTypeName>(type: Monitoring.DataTypeName): Subject<Monitoring.DataTypeOf<Type>> {
@@ -109,14 +85,17 @@ export class Monitor {
   ): Monitoring.UnsubscribeCallback {
     console.log('requested updates for type: ' + type);
     if (interval > 0) {
-      this.intervals[type] = interval;
-      this.ticks[type] = 0;
-      if (!this.running || this.nextTick - Date.now() > 50) {
-        this.tick();
-      }
+      this.intervals[type] = setInterval(() => {
+        this.tickerSubject.next(type);
+      }, interval);
+      this.tickerSubject.next(type);
     }
-    return this.getSubject<Type>(type).subscribe({
+    const subscription = this.getSubject<Type>(type).subscribe({
       next: callback,
-    }).unsubscribe;
+    });
+    return () => {
+      subscription.unsubscribe();
+      clearInterval(this.intervals[type]);
+    }
   }
 }

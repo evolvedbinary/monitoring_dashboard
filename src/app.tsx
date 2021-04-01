@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DBState from './DBState';
 import MemoryChart from './memoryChart'
 import DiskSpace from './diskSpace'
@@ -9,27 +9,53 @@ import DBActions from './DBActions';
 import { DBContext } from './DBConext';
 import { Monitor } from './api/monitor';
 import { Monitoring } from './api/classes';
+import DBButton from './DBButton';
 
 const monitor = new Monitor('/endpoint');
-// monitor.request(Monitoring.DataTypeName.memory).then(console.log);
-monitor.listen(Monitoring.DataTypeName.memory, value => {
-    console.log(' => ', value);
-}, 2)
-monitor.listen(Monitoring.DataTypeName.connection, value => {
-    console.log(' => ', value);
-}, 3)
 const App = () => {
-    const [monitor, setMonitor] = useState({pause:false,trace:false})
+    const [memoryTime, $memoryTime] = useState(0);
+    const [connectionTime, $connectionTime] = useState(0);
+    const [memoryStop, $memoryStop] = useState<() => void>(null);
+    const [connectionStop, $connectionStop] = useState<() => void>(null);
+    function memoryStopListenning() {
+        memoryStop();
+        $memoryStop(null);
+    }
+    function memoryStartListenning() {
+        const time = Date.now() / 1000;
+        $memoryStop(() => monitor.listen(Monitoring.DataTypeName.memory, value => {
+            $memoryTime(Date.now() / 1000 - time);
+        }, 50));
+    }
+    function connectionStopListenning() {
+        connectionStop();
+        $connectionStop(null);
+    }
+    function connectionStartListenning() {
+        const time = Date.now() / 1000;
+        $connectionStop(() => monitor.listen(Monitoring.DataTypeName.connection, value => {
+            $connectionTime(Date.now() / 1000 - time);
+        }, 200));
+    }
 
     return (
         <Grid>
-            <DBContext.Provider value={{ monitor, setMonitor }}>
-                {/* <DBState gridArea="DBState" />
-                <MemoryChart gridArea="memoryChart" />
-                <DiskSpace gridArea="diskSpace" />
-                <DBHealth gridArea="dbHealth"></DBHealth>
-                <DBActions gridArea="dbActions" /> */}
-            </DBContext.Provider>
+            <div>
+                <h1>Memory</h1>
+                <h3>{memoryTime.toFixed(2)}</h3>
+                <DBButton
+                    text={'memory ' + (memoryStop ? 'stop' : 'start')}
+                    onClick={memoryStop ? memoryStopListenning : memoryStartListenning}
+                />
+            </div>
+            <div>
+                <h1>Connection</h1>
+                <h3>{connectionTime.toFixed(2)}</h3>
+                <DBButton
+                    text={'connection ' + (connectionStop ? 'stop' : 'start')}
+                    onClick={connectionStop ? connectionStopListenning : connectionStartListenning}
+                />
+            </div>
         </Grid>
     )
 }

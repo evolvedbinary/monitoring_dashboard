@@ -2,7 +2,7 @@ export namespace Monitoring {
   export enum DataTypeName {
     memory = 'memory',
     disk = 'disk',
-    querie = 'querie',
+    query = 'querie',
     thread = 'thread',
     connection = 'connection',
   }
@@ -21,6 +21,24 @@ export namespace Monitoring {
     nonHeapMemoryUsage: MemoryUsage;
     objectPendingFinalizationCount: number;
   }
+  export interface ConnectionData extends DataType {
+    type: DataTypeName.connection;
+    active: number;
+  }
+  export interface DiskData extends DataType {
+    type: DataTypeName.disk;
+    usage: number;
+  }
+  export interface QuerieData extends DataType {
+    type: DataTypeName.query;
+    running: number;
+  }
+  export interface ThreadData extends DataType {
+    type: DataTypeName.thread;
+    active: number;
+    waiting: number;
+  }
+
   export type MonitorResult = Monitoring.DataType[];
 
   export type DataTypeOf<Type extends DataTypeName> =

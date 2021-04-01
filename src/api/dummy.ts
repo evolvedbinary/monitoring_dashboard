@@ -19,13 +19,35 @@ const _maxUsedHeap = 60 * _G;
 const _maxCommittedHeap = _maxMemory;
 const _maxPending = 8;
 
-const _deltaUsed = 0.5 * _G;
-const _deltaCommitted = 0.21 * _G;
-const _deltaUsedHeap = 5 * _G;
-const _deltaCommittedHeap = 5 * _G;
-const _deltaPending = 1;
+const _minConnections = 0;
+const _maxConnections = 100;
+const _minActiveThreads = 0;
+const _maxActiveThreads = 100;
+const _minWaitingThreads = 0;
+const _maxWaitingThreads = 200;
+const _minQueries = 0;
+const _maxQueries = 100;
+const _minDiskUsage = 24 * _G;
+const _maxDiskUsage = 64 * _G;
 
 export const DUMMY = {
+  query: (): Monitoring.QuerieData => ({
+    type: Monitoring.DataTypeName.query,
+    running: randomBetween(_minQueries, _maxQueries),
+  }),
+  thread: (): Monitoring.ThreadData => ({
+    type: Monitoring.DataTypeName.thread,
+    active: randomBetween(_minActiveThreads, _maxActiveThreads),
+    waiting: randomBetween(_minWaitingThreads, _maxWaitingThreads),
+  }),
+  disk: (): Monitoring.DiskData => ({
+    type: Monitoring.DataTypeName.disk,
+    usage: randomBetween(_minDiskUsage, _maxDiskUsage),
+  }),
+  connection: (): Monitoring.ConnectionData => ({
+    type: Monitoring.DataTypeName.connection,
+    active: randomBetween(_minConnections, _maxConnections),
+  }),
   memory: (): Monitoring.MemoryData => ({
     type: Monitoring.DataTypeName.memory,
     heapMemoryUsage: {
@@ -45,6 +67,11 @@ export const DUMMY = {
   get(type: Monitoring.DataTypeName): Monitoring.DataType {
     switch (type) {
       case Monitoring.DataTypeName.memory: return DUMMY.memory();
+      case Monitoring.DataTypeName.connection: return DUMMY.connection();
+      case Monitoring.DataTypeName.disk: return DUMMY.disk();
+      case Monitoring.DataTypeName.query: return DUMMY.query();
+      case Monitoring.DataTypeName.thread: return DUMMY.thread();
+      default: return { type };
     }
   },
   multi(...types: Monitoring.DataTypeName[]): Monitoring.MonitorResult {

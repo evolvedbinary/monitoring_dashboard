@@ -9,6 +9,6 @@ export class MonitoringApi {
   request(...types: Monitoring.DataTypeName[]) {
     console.log('request from api: ' + types.join(', '));
     // TODO: make api request
-    setTimeout(() => this.callback(DUMMY.multi(...types)), Math.random() * 2000);
+    setTimeout(() => this.callback(DUMMY.multi(...types)), Math.random() * 0);
   }
 };
