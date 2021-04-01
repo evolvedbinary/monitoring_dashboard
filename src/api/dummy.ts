@@ -31,7 +31,7 @@ const _minDiskUsage = 24 * _G;
 const _maxDiskUsage = 64 * _G;
 
 export const DUMMY = {
-  query: (): Monitoring.QuerieData => ({
+  query: (): Monitoring.QueryData => ({
     type: Monitoring.DataTypeName.query,
     running: randomBetween(_minQueries, _maxQueries),
   }),
@@ -77,4 +77,30 @@ export const DUMMY = {
   multi(...types: Monitoring.DataTypeName[]): Monitoring.MonitorResult {
     return types.map(DUMMY.get);
   },
+}
+
+export const DUMMY_CONSTS = {
+  _G,
+  _initialMemory,
+  _maxMemory,
+  _minUsed,
+  _minCommitted,
+  _minUsedHeap,
+  _minCommittedHeap,
+  _minPending,
+  _maxUsed,
+  _maxCommitted,
+  _maxUsedHeap,
+  _maxCommittedHeap,
+  _maxPending,
+  _minConnections,
+  _maxConnections,
+  _minActiveThreads,
+  _maxActiveThreads,
+  _minWaitingThreads,
+  _maxWaitingThreads,
+  _minQueries,
+  _maxQueries,
+  _minDiskUsage,
+  _maxDiskUsage,
 }

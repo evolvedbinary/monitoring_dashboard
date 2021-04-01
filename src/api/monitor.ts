@@ -21,16 +21,11 @@ export class Monitor {
   private subSubjects: MonitorSubjects = {};
   private tickerSubject: Subject<Monitoring.DataTypeName>;
   private ticker: Observable<Monitoring.DataTypeName[]>;
-  private intervals: MonitorIntervals = {};
-  private ticks: MonitorIntervals = {};
-  private running = false;
-  private lastTick: number;
-  private nextTick: number;
   private response(result: Monitoring.MonitorResult) {
     console.log('received result:', result);
     result.forEach(subResult => {
       console.log('  forwarding sub result:', subResult.type);
-      this.getSubject(subResult.type).next(subResult);
+      this.getSubject<any>(subResult.type).next(subResult);
     });
   }
   constructor(private endpoint: string) {
@@ -68,6 +63,21 @@ export class Monitor {
     }
   }
 
+  listen<Type extends Monitoring.DataTypeName.thread = Monitoring.DataTypeName.thread>(
+    type: Monitoring.DataTypeName.thread,
+    callback: Monitoring.SubscribtionCallback<Type>,
+    interval?: number,
+  ): Monitoring.UnsubscribeCallback;
+  listen<Type extends Monitoring.DataTypeName.query = Monitoring.DataTypeName.query>(
+    type: Monitoring.DataTypeName.query,
+    callback: Monitoring.SubscribtionCallback<Type>,
+    interval?: number,
+  ): Monitoring.UnsubscribeCallback;
+  listen<Type extends Monitoring.DataTypeName.disk = Monitoring.DataTypeName.disk>(
+    type: Monitoring.DataTypeName.disk,
+    callback: Monitoring.SubscribtionCallback<Type>,
+    interval?: number,
+  ): Monitoring.UnsubscribeCallback;
   listen<Type extends Monitoring.DataTypeName.memory = Monitoring.DataTypeName.memory>(
     type: Monitoring.DataTypeName.memory,
     callback: Monitoring.SubscribtionCallback<Type>,
@@ -84,8 +94,9 @@ export class Monitor {
     interval = -1,
   ): Monitoring.UnsubscribeCallback {
     console.log('requested updates for type: ' + type);
+    let intervalRef: number;
     if (interval > 0) {
-      this.intervals[type] = setInterval(() => {
+      intervalRef = setInterval(() => {
         this.tickerSubject.next(type);
       }, interval);
       this.tickerSubject.next(type);
@@ -95,7 +106,9 @@ export class Monitor {
     });
     return () => {
       subscription.unsubscribe();
-      clearInterval(this.intervals[type]);
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
     }
   }
 }

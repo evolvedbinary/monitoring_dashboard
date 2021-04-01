@@ -94,7 +94,7 @@ const chartOptions: Chart.ChartConfiguration = {
 };
 
 const MemoryChart = (props) => {
-    const {monitor, setMonitor} = useContext(DBContext);
+    const { monitorContext } = useContext(DBContext);
     const chartRef = useRef<HTMLCanvasElement>(null);
     const [chart, setChart] = useState(null);
     useEffect(() => {
@@ -129,7 +129,7 @@ const MemoryChart = (props) => {
             });
 
         });
-        if(!monitor.pause) {
+        if(!monitorContext.pause) {
             Memory.start();
         }
            
@@ -138,7 +138,7 @@ const MemoryChart = (props) => {
             chartInstance.destroy();
             Memory.pause();
         }
-    },[monitor]);
+    },[monitorContext]);
 
     const style: React.CSSProperties = {
         gridArea: props.gridArea,

@@ -29,7 +29,7 @@ export namespace Monitoring {
     type: DataTypeName.disk;
     usage: number;
   }
-  export interface QuerieData extends DataType {
+  export interface QueryData extends DataType {
     type: DataTypeName.query;
     running: number;
   }
@@ -42,8 +42,12 @@ export namespace Monitoring {
   export type MonitorResult = Monitoring.DataType[];
 
   export type DataTypeOf<Type extends DataTypeName> =
-    Type extends DataTypeName.memory ? MemoryData
-    : DataType;
+    Type extends DataTypeName.memory ? MemoryData :
+    Type extends DataTypeName.connection ? ConnectionData :
+    Type extends DataTypeName.disk ? DiskData :
+    Type extends DataTypeName.query ? QueryData :
+    Type extends DataTypeName.thread ? ThreadData :
+      DataType;
 
   export type SubscribtionCallback<Type extends DataTypeName> = (value: DataTypeOf<Type>) => void;
   export type UnsubscribeCallback = () => void;
