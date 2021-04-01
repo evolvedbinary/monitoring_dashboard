@@ -23,7 +23,7 @@ const App = () => {
         <Grid>
             <DBContext.Provider value={{ monitorContext, setMonitorContext }}>
                 <DBState gridArea="DBState" />
-                <MemoryChart gridArea="memoryChart" />
+                {/* <MemoryChart gridArea="memoryChart" /> */}
                 <DiskSpace gridArea="diskSpace" />
                 <DBHealth gridArea="dbHealth"></DBHealth>
                 <DBActions gridArea="dbActions" />

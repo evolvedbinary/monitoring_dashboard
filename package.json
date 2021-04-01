@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "snowpack dev"
+    "start": "snowpack dev",
+    "build": "snowpack build"
   },
   "dependencies": {
     "chart.js": "^2.9.4",
@@ -18,6 +19,7 @@
     "@types/chart.js": "^2.9.31",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.1",
+    "live-server": "^1.2.1",
     "snowpack": "^3.0.13"
   }
 }

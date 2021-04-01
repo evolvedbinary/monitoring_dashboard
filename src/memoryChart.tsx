@@ -102,7 +102,7 @@ const MemoryChart = (props) => {
         const chartInstance = new Chart(chartRef.current, chartOptions);
 
         
-        const subscription = Memory.subscribe(v => {
+        const sub = Memory.subscribe(v => {
 
             const heap = v.heapMemoryUsage;
             const Nheap = v.nonHeapMemoryUsage;
@@ -134,11 +134,11 @@ const MemoryChart = (props) => {
         }
            
         return () => {
-            subscription.unsubscribe();
+            sub.unsubscribe();
             chartInstance.destroy();
             Memory.pause();
         }
-    },[monitorContext]);
+    },[monitor.pause]);
 
     const style: React.CSSProperties = {
         gridArea: props.gridArea,
