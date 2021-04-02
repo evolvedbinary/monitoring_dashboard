@@ -1,7 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { bufferTime, filter } from 'rxjs/operators';
 import { MonitoringApi } from './api';
-import { randomBetween } from './base';
 import { Monitoring } from './classes';
 import { DUMMY } from './dummy';
 
@@ -50,15 +49,11 @@ export class Monitor {
     return this.subSubjects[type] as unknown as Subject<Monitoring.DataTypeOf<Type>>;
   }
 
-  private async readMemory(): Promise<Monitoring.MemoryData> {
-    return DUMMY.memory();
-  }
-
   async request(type: Monitoring.DataTypeName.memory): Promise<Monitoring.MemoryData>;
   async request(type: Monitoring.DataTypeName): Promise<Monitoring.DataType> {
     console.log('requested type: ' + type);
     switch (type) {
-      case Monitoring.DataTypeName.memory: return this.readMemory();;
+      // case Monitoring.DataTypeName.memory: return this.readMemory();
       default: return { type };
     }
   }
@@ -94,7 +89,7 @@ export class Monitor {
     interval = -1,
   ): Monitoring.UnsubscribeCallback {
     console.log('requested updates for type: ' + type);
-    let intervalRef: NodeJS.Timeout;
+    let intervalRef: number;
     if (interval > 0) {
       intervalRef = setInterval(() => {
         this.tickerSubject.next(type);

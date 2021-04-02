@@ -23,17 +23,18 @@ const DiskSpace = (props) => {
     useEffect(() => monitor.listen(
         Monitoring.DataTypeName.disk,
         diskData => {
-            if (!pause) {
-                const usage = Math.round(diskData.usage / DUMMY_CONSTS._maxDiskUsage * 100);
-                if(usage < 50) setDiskColor("rgba(97, 177, 90,0.9)");
-                if(usage > 50) setDiskColor("rgba(239, 123, 69,0.9)");
-                if(usage > 90) setDiskColor("rgba(236, 70, 70,0.9)");
-                setDiskUsage([usage, 100 - usage]);
-            }
+            if (pause) return;
+            const usage = Math.round(diskData.usage / DUMMY_CONSTS._maxDiskUsage * 100);
+            // chart color NOTE(YB): we need bunch of constants for each value
+            if (usage < 50) setDiskColor("rgba(97, 177, 90,0.9)"); // healthy
+            if (usage > 50) setDiskColor("rgba(239, 123, 69,0.9)"); // warnning
+            if (usage > 90) setDiskColor("rgba(236, 70, 70,0.9)"); // danger
+            setDiskUsage([usage, 100 - usage]);
+
         },
         1000,
     ), [monitor, pause]);
-    
+
     const options: chartjs.ChartOptions = {
         responsive: false,
         rotation: 1 * Math.PI,
@@ -51,7 +52,6 @@ const DiskSpace = (props) => {
     return (
         <div className="disk-space" style={style}>
             <h3 className="disk-text">Disk Usage</h3>
-            {/* <canvas ref={chartRef} width="300px" height="150px" className="disk-canvas"> */}
             <div style={{ width: 300, height: 150 }} className="disk-canvas">
                 <Doughnut data={data} options={options} width={300} height={150} />
             </div>
