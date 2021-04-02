@@ -7,27 +7,33 @@ import { DUMMY_CONSTS } from './api/dummy';
 
 const DiskSpace = (props) => {
     const [diskUsage, setDiskUsage] = useState([0, 100]);
+    const [diskColor, setDiskColor] = useState("rgba(97, 177, 90,0.9)");
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
+
+    const data: ChartData<chartjs.ChartData> = {
+        datasets: [
+            {
+                data: diskUsage,
+                backgroundColor: [diskColor, "rgba(255, 255, 255, 1)",],
+                borderWidth: 0,
+            },
+        ]
+    };
 
     useEffect(() => monitor.listen(
         Monitoring.DataTypeName.disk,
         diskData => {
             if (!pause) {
                 const usage = Math.round(diskData.usage / DUMMY_CONSTS._maxDiskUsage * 100);
+                if(usage < 50) setDiskColor("rgba(97, 177, 90,0.9)");
+                if(usage > 50) setDiskColor("rgba(239, 123, 69,0.9)");
+                if(usage > 90) setDiskColor("rgba(236, 70, 70,0.9)");
                 setDiskUsage([usage, 100 - usage]);
             }
         },
         1000,
     ), [monitor, pause]);
-    const data: ChartData<chartjs.ChartData> = {
-        datasets: [
-            {
-                data: diskUsage,
-                backgroundColor: ["rgba(97, 177, 90,0.9)", "rgba(255, 255, 255, 1)",],
-                borderWidth: 0,
-            },
-        ]
-    };
+    
     const options: chartjs.ChartOptions = {
         responsive: false,
         rotation: 1 * Math.PI,

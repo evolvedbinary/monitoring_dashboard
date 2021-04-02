@@ -1,5 +1,18 @@
 import React, { useState } from 'react'
-import StateWidget from './StateWidget';
+
+
+const StateWidget = (props) => {
+    return (
+        <div className={`state-widget ${props.state}`}>
+            <div className="state-title">
+                {props.title} 
+            </div>
+            <div className="state-value">
+                {props.value}
+            </div>
+        </div>
+    )
+}
 
 const DBState = (props) => {
     const style: React.CSSProperties = {

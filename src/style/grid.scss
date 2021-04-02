@@ -1,3 +1,8 @@
+:root {
+    --main-bg-color: brown;
+  }
+
+
 .grid {
     color: #e9e8e8;
     display: grid;
@@ -7,6 +12,7 @@
     grid-template-columns: repeat(4,1fr);
     grid-template-areas: 
     "DBState DBState DBState dbActions"
+    "memoryChart memoryChart memoryChart dbActions "
     "memoryChart memoryChart memoryChart diskSpace "
     "memoryChart memoryChart memoryChart dbHealth"
     "memoryChart memoryChart memoryChart .";

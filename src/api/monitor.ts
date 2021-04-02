@@ -12,7 +12,7 @@ export interface MonitorSubjects {
   [Monitoring.DataTypeName.query]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.query>>;
   [Monitoring.DataTypeName.thread]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.thread>>;
 }
-export type MonitorIntervals =  Partial<Record<Monitoring.DataTypeName, number>>;
+export type MonitorIntervals = Partial<Record<Monitoring.DataTypeName, number>>;
 
 
 export class Monitor {
@@ -94,7 +94,7 @@ export class Monitor {
     interval = -1,
   ): Monitoring.UnsubscribeCallback {
     console.log('requested updates for type: ' + type);
-    let intervalRef: number;
+    let intervalRef: NodeJS.Timeout;
     if (interval > 0) {
       intervalRef = setInterval(() => {
         this.tickerSubject.next(type);
