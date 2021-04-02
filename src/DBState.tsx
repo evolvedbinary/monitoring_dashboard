@@ -18,28 +18,43 @@ const StateWidget = (props) => {
 
 const DBState = (props) => {
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
-    const [queries, setQueries] = useState<Monitoring.QueryData>({type:Monitoring.DataTypeName.query,running:0});
-    const [threads, setThreads] = useState<Monitoring.ThreadData>({type:Monitoring.DataTypeName.thread,active:0,waiting:0});
-    const [connections, setConnections] = useState<Monitoring.ConnectionData>({type:Monitoring.DataTypeName.connection,active:0});
+    const [{ queries, threads, connections }, setGlobal] = useState<{
+        queries: Monitoring.QueryData,
+        threads: Monitoring.ThreadData,
+        connections: Monitoring.ConnectionData,
+    }>({
+        queries: {
+            type: Monitoring.DataTypeName.query,
+            running:0,
+        },
+        threads: {
+            type: Monitoring.DataTypeName.thread,active:0,
+            waiting:0,
+        },
+        connections: {
+            type: Monitoring.DataTypeName.connection,
+            active:0,
+        },
+    });
 
     useEffect(() => {
         if(pause) return;
 
         const thread = monitor.listen(
             Monitoring.DataTypeName.thread,
-            setThreads,
+            threads => setGlobal(global => ({ ...global, threads })),
             1000
-        )
-
-        const connection = monitor.listen(
+            )
+            
+            const connection = monitor.listen(
             Monitoring.DataTypeName.connection,
-            setConnections,
+            connections => setGlobal(global => ({ ...global, connections })),
             1000
-        )
-
-        const query = monitor.listen(
+            )
+            
+            const query = monitor.listen(
             Monitoring.DataTypeName.query,
-            setQueries,
+            queries => setGlobal(global => ({ ...global, queries })),
             1000
         ) 
         return () => {

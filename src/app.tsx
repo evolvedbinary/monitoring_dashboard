@@ -8,8 +8,6 @@ import "./style/index.scss";
 import DBActions from './DBActions';
 import { DBContext } from './DBConext';
 import { Monitor } from './api/monitor';
-import { Monitoring } from './api/classes';
-import DBButton from './DBButton';
 
 const monitor = new Monitor('/endpoint');
 
