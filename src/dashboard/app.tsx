@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import DBState from './DBState';
 import MemoryChart from './memoryChart'
 import DiskSpace from './diskSpace'
 import Grid from './grid';
-import DBHealth from './DBHealth';
-import "./style/index.scss";
 import DBActions from './DBActions';
 import { DBContext } from './DBConext';
 import { Monitor } from './api/monitor';
 
 const monitor = new Monitor('/endpoint');
 
-const App = () => {
+const MonitoringDashboard = () => {
     const [monitorContext, setMonitorContext] = useState({
         monitor,
         trace: false,
@@ -30,4 +28,4 @@ const App = () => {
     )
 }
 
-export default App
+export default MonitoringDashboard

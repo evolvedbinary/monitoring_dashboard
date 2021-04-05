@@ -1,4 +1,4 @@
-import {createContext, Dispatch} from 'react';
+import {createContext, Dispatch, useState} from 'react';
 import { Monitor } from './api/monitor';
 
 export interface MonitorContext{
@@ -6,7 +6,16 @@ export interface MonitorContext{
   trace: boolean;
   pause: boolean;
 };
+const monitor = new Monitor('/endpoint');
+
 export const DBContext = createContext<{
   monitorContext: MonitorContext;
   setMonitorContext: Dispatch<MonitorContext>;
-}>(null);
+}>({
+  monitorContext: {
+    monitor,
+    trace: false,
+    pause: false,
+  },
+  setMonitorContext: () => {}
+});
