@@ -14,14 +14,16 @@
 
 .state {
     &-widget {
-        flex: 1;
-        // flex-grow: 1;
-        padding: 1rem;
-        border-radius: 5px;
-        display: flex;
+        flex-grow: 1;
+
+        flex-shrink: 1;
+        padding: 0.5rem;
+        border-radius: 10px;
+        display: grid; 
+        grid-template-rows: 1fr 2fr;
         flex-flow: column;
         align-items: center;
-        position: relative;
+        text-align: center;
     }
 
     &-title {

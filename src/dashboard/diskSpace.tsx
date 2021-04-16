@@ -1,16 +1,23 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as chartjs from 'chart.js';
 import { ChartData, Doughnut } from 'react-chartjs-2';
 import { DBContext } from './DBConext';
 import { Monitoring } from './api/classes';
 import { DUMMY_CONSTS } from './api/dummy';
+import { from, fromEvent, of } from 'rxjs';
+import { buffer, last, map, mergeAll, repeat, switchAll, take, takeUntil, throttle, throttleTime } from 'rxjs/operators';
 
-const DiskSpace = (props) => {
+interface DiskSpaceProps {
+    gridArea: string
+}
+
+const DiskSpace: React.FC<DiskSpaceProps> = (props) => {
     const [diskUsage, setDiskUsage] = useState([0, 100]);
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
     const diskColor = diskUsage[0] < 50 ? 'rgba(97, 177, 90,0.9)'
         : diskUsage[0] < 90 ? 'rgba(239, 123, 69,0.9)'
-        : 'rgba(236, 70, 70,0.9)';
+            : 'rgba(236, 70, 70,0.9)';
 
     const data: ChartData<chartjs.ChartData> = {
         datasets: [
@@ -32,8 +39,8 @@ const DiskSpace = (props) => {
         },
         1000,
     ), [monitor, pause]);
-    
-    const options: chartjs.ChartOptions = {
+
+    const options: any = {
         responsive: false,
         rotation: 1 * Math.PI,
         circumference: 1 * Math.PI,
@@ -43,18 +50,19 @@ const DiskSpace = (props) => {
         }
     };
 
-
     const style: React.CSSProperties = {
         gridArea: props.gridArea,
     }
     return (
         <div className="disk-space" style={style}>
-            <h3 className="disk-text">Disk Usage</h3>
-            {/* <canvas ref={chartRef} width="300px" height="150px" className="disk-canvas"> */}
-            <div style={{ width: 300, height: 150 }} className="disk-canvas">
-                <Doughnut data={data} options={options} width={300} height={150} />
+            <div className="widget">
+                <h3 className="disk-text">Disk Usage</h3>
+                {/* <canvas ref={chartRef} width="300px" height="150px" className="disk-canvas"> */}
+                <div style={{ width: 300, height: 150 }} className="disk-canvas">
+                    <Doughnut data={data} options={options} width={300} height={150} />
+                </div>
+                <span className="disk-space__precentage">{diskUsage[0]}%</span>
             </div>
-            <span className="disk-space__precentage">{diskUsage[0]}%</span>
         </div>
     )
 }

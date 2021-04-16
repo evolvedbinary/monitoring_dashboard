@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
 
-const Grid = (props) => {
+const Grid : React.FC = (props) => {
     return (
         <div className="grid">
             {props.children}

@@ -1,6 +1,10 @@
-import React from 'react'
+import * as React from 'react'
 
-const DBHealth = (props) => {
+interface HeathProps {
+    gridArea:string
+}
+
+const DBHealth : React.FC<HeathProps> = (props) => {
     const style :React.CSSProperties = {
         gridArea: props.gridArea,
         padding:"1rem 2rem",

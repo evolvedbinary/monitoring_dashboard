@@ -1,4 +1,4 @@
-import {createContext, Dispatch, useState} from 'react';
+import {createContext, Dispatch} from 'react';
 import { Monitor } from './api/monitor';
 
 export interface MonitorContext{

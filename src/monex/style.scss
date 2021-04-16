@@ -1,0 +1,23 @@
+$background: #161616;
+$light-background: #3C3C3C;
+$dark-background: #f0a4a4;
+$white:#fff;
+$gray: #BABEC1;
+
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
+
+
+@import "./styles/grid.scss";
+@import "./styles/RunningJobs.scss";
+@import "./styles/chart.scss";
+@import "./styles/cache.scss";
+@import "./styles/general-info.scss";
+@import "./styles/systemInformation.scss";
+@import "./styles/RunningQueries.scss";
+@import "./styles/RecentQueries.scss";
+@import "./styles/WaitingThreads.scss";
+@import "./styles/ActiveThreads.scss";

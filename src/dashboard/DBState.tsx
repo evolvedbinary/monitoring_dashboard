@@ -1,9 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import * as React from 'react';
+import { useContext, useEffect, useState } from 'react'
 import { Monitoring } from './api/classes';
 import { DBContext } from './DBConext';
 
+interface StateWidgetProps {
+    state:string,
+    title:string,
+    value:number,
+}
 
-const StateWidget = (props) => {
+const StateWidget : React.FC<StateWidgetProps> = (props) => {
     return (
         <div className={`state-widget ${props.state}`}>
             <div className="state-title">
@@ -16,7 +22,11 @@ const StateWidget = (props) => {
     )
 }
 
-const DBState = (props) => {
+interface StateProps {
+    gridArea:string
+}
+
+const DBState : React.FC<StateProps> = (props) => {
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
     const [{ queries, threads, connections }, setGlobal] = useState<{
         queries: Monitoring.QueryData,

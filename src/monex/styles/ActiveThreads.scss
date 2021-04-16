@@ -1,0 +1,16 @@
+.ActiveThreads {
+    grid-area: ActiveThreads;
+
+    &--element {
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin-top: 0.2rem;
+        background: $light-background;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    &--element:nth-child(odd) {
+        background: $dark-background;
+    }
+}

@@ -1,12 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as chartjs from 'chart.js';
 import { ChartData, Line } from 'react-chartjs-2';
 import { DBContext } from './DBConext';
 import { Monitoring } from './api/classes';
 
 type MemoryUsage = { heap: {x:number,y:number}[], nonHeap: {x:number,y:number}[] };
+interface MemoryChartProps {
+    gridArea:string
+}
 
-const MemoryChart = (props) => {
+const MemoryChart : React.FC<MemoryChartProps> = (props) => {
     const [memoryUsage, setMemoryUsage] = useState<{ state: MemoryUsage, display: MemoryUsage }>({ state: {heap:[],nonHeap:[]}, display: {heap:[],nonHeap:[]} });
     const [memoryWarnning, setMemoryWarnning] = useState(false);
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
@@ -44,6 +48,15 @@ const MemoryChart = (props) => {
         },
         1000
     ), [monitor, pause]);
+    const colors  = {
+        gridLines : "#4b4b4b",
+        fontColor: "#e9e9e9",
+    };
+    if(localStorage.theme === "light") {
+        colors.gridLines = "#ccc";
+        colors.fontColor = "#616161";
+    }
+    
 
     const data: ChartData<chartjs.ChartData> = {
         datasets: [{
@@ -78,8 +91,8 @@ const MemoryChart = (props) => {
         legend:{
             align:"start",
             position:"bottom",
-            
             labels:{
+                fontColor: colors.fontColor,
                 fontSize:15,
                 boxWidth:3,
                 usePointStyle:true,
@@ -98,10 +111,10 @@ const MemoryChart = (props) => {
             xAxes: [
                 { 
                     gridLines: {
-                        color: "#363636",
+                        color: colors.gridLines,
                     },
                     ticks: {
-                        fontColor: "#a3a7a9",
+                        fontColor: colors.fontColor,
                         maxTicksLimit:10,
                         maxRotation:0
                     },
@@ -124,11 +137,11 @@ const MemoryChart = (props) => {
                 {
                     
                     gridLines: {
-                        color: "#363636",
+                        color: colors.gridLines,
                     },
                     ticks:{
-                        fontColor: "#a3a7a9",
-                        callback:(value,idx,vlaues) => {
+                        fontColor: colors.fontColor,
+                        callback:(value:string,idx:number,vlaues:string[]) => {
                             const tick = Math.round(+value / 1024 / 1024 / 1024)
                             return `${tick} MB`
                         },
@@ -147,7 +160,9 @@ const MemoryChart = (props) => {
     return (
         <div className="memory-chart" style={style}>
             <h3 className="memory-chart__header">java instance memory usage</h3>
-            <Line data={data} options={options} height={350}/>
+            <div className="chart">
+                <Line data={data} options={options} height={350}/>
+            </div>
         </div>
     )
 }

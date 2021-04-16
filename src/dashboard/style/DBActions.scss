@@ -9,7 +9,7 @@
 
 .db-button {
     padding: 0.5rem;
-    background: #2D2D2D;
+    background: var(--theia-editor-background);
     border-radius: 5px;
     font-size: 2rem;
     display: flex;
@@ -22,7 +22,7 @@
     }
 
     &__clicked {
-        box-shadow: inset 0px 0px 4px 0px rgb(0 0 0 / 50%);
+        box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
         color: #2d2d2d;
         background: #e9e8e8;
     }

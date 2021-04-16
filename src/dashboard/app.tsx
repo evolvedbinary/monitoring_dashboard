@@ -1,6 +1,7 @@
-import React, {  useState } from 'react'
+import * as React from 'react';
+import {  useState } from 'react'
 import DBState from './DBState';
-import MemoryChart from './memoryChart'
+import MemoryChart from './memoryChart';
 import DiskSpace from './diskSpace'
 import Grid from './grid';
 import DBActions from './DBActions';

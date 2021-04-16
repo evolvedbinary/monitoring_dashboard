@@ -1,7 +1,16 @@
-import React, { useContext } from 'react'
+import * as React from 'react';
+import { useContext } from 'react'
 import { DBContext } from './DBConext'
 
-const DBButton = (props) => {
+interface ButtonProps {
+    text:string,
+    grid:string,
+    clicked:boolean,
+    icon:string,
+    onClick?:() => void
+}
+
+const DBButton : React.FC<ButtonProps> = (props) => {
     const style: React.CSSProperties = {
         gridArea: props.grid,
     };
@@ -15,8 +24,11 @@ const DBButton = (props) => {
 }
 
 
+interface ActionProps {
+    gridArea:string,
+}
 
-const DBActions = (props) => {
+const DBActions : React.FC<ActionProps> = (props) => {
     const { monitorContext, setMonitorContext } = useContext(DBContext);
     const style : React.CSSProperties= {
         gridArea: props.gridArea,

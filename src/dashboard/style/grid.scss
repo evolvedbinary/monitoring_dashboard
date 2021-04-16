@@ -1,10 +1,7 @@
-:root {
-    --main-bg-color: brown;
-  }
-
-
 .grid {
-    color: #e9e8e8;
+    // max-width: 1524px;
+    font-family: sans-serif;
+    color: var(--theia-foreground);
     display: grid;
     padding: 1rem;
     gap: 1rem;
@@ -17,12 +14,18 @@
     "memoryChart memoryChart memoryChart dbHealth";
 
     & > * {
-        background: #1f1f1f;
+        background: var(--theia-quickInput-background); 
         padding: 1rem;
         border-radius: 10px;
     }
+    
 }
 
 .memory-chart {
-    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    .chart {
+        height: 400px;
+    }
 }
+

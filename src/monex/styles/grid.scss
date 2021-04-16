@@ -1,0 +1,21 @@
+.grid {
+    padding: 0 1rem ;
+    display: grid;
+    gap: 15px;
+    align-items: flex-start;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-areas: 
+    "general general general general"
+    "memory memory memory memory"
+    "systemInformation systemInformation cache cache"
+    "RunningQueries RunningQueries RunningQueries RunningQueries"
+    "RecentQueries RecentQueries RecentQueries RecentQueries"
+    "WaitingThreads WaitingThreads ActiveThreads ActiveThreads";
+
+    color: $white;
+    background:$background;
+
+    & > * {
+        background: $dark-background;
+    }
+}

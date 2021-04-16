@@ -1,0 +1,41 @@
+.general-info {
+    grid-area: general;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1;
+    &_item {
+        display: flex;
+        flex-grow: 1;
+
+        &--icon {
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .5rem;
+        }
+
+        &--detail {
+            padding: 0.5rem;
+            color: $gray;
+            flex-grow: 1;
+            background: $light-background;
+            border-radius: 5px;
+        }
+
+        &--title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+// background: #48466d;
+// background: #3d84a8;
+// background: #3d84a8;
+// background: #6ea996;

@@ -2,7 +2,6 @@ import { Observable, Subject } from 'rxjs';
 import { bufferTime, filter } from 'rxjs/operators';
 import { MonitoringApi } from './api';
 import { Monitoring } from './classes';
-import { DUMMY } from './dummy';
 
 export interface MonitorSubjects {
   [Monitoring.DataTypeName.connection]?: Subject<Monitoring.DataTypeOf<Monitoring.DataTypeName.connection>>;
@@ -21,14 +20,14 @@ export class Monitor {
   private tickerSubject: Subject<Monitoring.DataTypeName>;
   private ticker: Observable<Monitoring.DataTypeName[]>;
   private response(result: Monitoring.MonitorResult) {
-    console.log('received result:', result);
+    // console.log('received result:', result);
     result.forEach(subResult => {
-      console.log('  forwarding sub result:', subResult.type);
+      // console.log('  forwarding sub result:', subResult.type);
       this.getSubject<any>(subResult.type).next(subResult);
     });
   }
-  constructor(private endpoint: string) {
-    console.log('monitor created at: ' + endpoint);
+  constructor(endpoint: string) {
+    // console.log('monitor created at: ' + endpoint);
     this.api = new MonitoringApi(this.response.bind(this));
     this.tickerSubject = new Subject<Monitoring.DataTypeName>();
     this.ticker = this.tickerSubject.pipe(
@@ -38,7 +37,9 @@ export class Monitor {
     this.ticker.subscribe(types => this.api.request(...types.filter((type, i) => i === types.indexOf(type))));
   }
   dispose() {
-    Object.keys(this.subSubjects).map(type => this.subSubjects[type]).forEach(subject => subject.complete());
+    Object.keys(this.subSubjects).map( type  => {
+      if (type === "memory" || type === "connection" || type === "disk" || type === "querie" || type === "thread") return this.subSubjects[type];
+    }).forEach(subject => subject?.complete());
     this.subject.complete();
   }
 
@@ -51,7 +52,7 @@ export class Monitor {
 
   async request(type: Monitoring.DataTypeName.memory): Promise<Monitoring.MemoryData>;
   async request(type: Monitoring.DataTypeName): Promise<Monitoring.DataType> {
-    console.log('requested type: ' + type);
+    // console.log('requested type: ' + type);
     switch (type) {
       // case Monitoring.DataTypeName.memory: return this.readMemory();
       default: return { type };
@@ -88,8 +89,8 @@ export class Monitor {
     callback: Monitoring.SubscribtionCallback<Type>,
     interval = -1,
   ): Monitoring.UnsubscribeCallback {
-    console.log('requested updates for type: ' + type);
-    let intervalRef: number;
+    // console.log('requested updates for type: ' + type);
+    let intervalRef: NodeJS.Timeout;
     if (interval > 0) {
       intervalRef = setInterval(() => {
         this.tickerSubject.next(type);

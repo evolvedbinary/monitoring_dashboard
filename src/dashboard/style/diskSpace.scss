@@ -1,20 +1,18 @@
-.disk {
+.disk-space {
 
-
-    &-space {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    font-size: 1.6rem;
-    position: relative;
+    .widget {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        font-size: 1.6rem;
+        position: relative;
+    }
 
     &__precentage {
         position: absolute;
         content: "";
-        bottom: 1.5rem;
+        bottom: 5%;
         font-size: 3rem;
         z-index: 1;
     }
-}
-
 }
