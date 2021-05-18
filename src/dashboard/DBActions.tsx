@@ -35,9 +35,9 @@ const DBActions : React.FC<ActionProps> = (props) => {
     }
     return (
         <div className="db-actions" style={style}>
-            <DBButton icon="search" grid="trace" text="trace" clicked={monitorContext.trace} onClick={() => setMonitorContext({ ...monitorContext, trace: !monitorContext.trace })}/>
+            {/* <DBButton icon="search" grid="trace" text="trace" clicked={monitorContext.trace} onClick={() => setMonitorContext({ ...monitorContext, trace: !monitorContext.trace })}/> */}
             <DBButton icon="pause" grid="pause" text="pause" clicked={monitorContext.pause} onClick={() => setMonitorContext({ ...monitorContext, pause: !monitorContext.pause })}/>
-            <DBButton icon="bolt" grid="clear" text="clear grabage" clicked={false}/>
+            <DBButton icon="bolt" grid="clear" text="Preform GC" clicked={false}/>
         </div>
     )
 }

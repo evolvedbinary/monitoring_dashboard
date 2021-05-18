@@ -2,8 +2,7 @@
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-template-areas: 
-    "trace pause"
-    "clear clear";
+    "clear pause";
     gap: 15px;
 }
 

@@ -16,38 +16,40 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
 
 
-    useEffect(() => monitor.listen(
-        Monitoring.DataTypeName.memory,
-        memoryData => {
-            setMemoryUsage(({ state, display }) => {
-                const usage = {
-                    heap: {
-                        x: Date.now(),
-                        y: memoryData.heapMemoryUsage.used,
-                    },
-                    nonHead: {
-                        x: Date.now(),
-                        y: memoryData.nonHeapMemoryUsage.used,
-                    } 
-                };
-    
-                if(state.heap.length > 40) { // NOTE(YB):we need a constant to indecate how many points we want the chart to hold
-                    state.heap.shift();
-                    state.nonHeap.shift();
-                }
-                if(usage.heap.y > 1000) setMemoryWarnning(true);
-                const newState = {
-                    heap:[...state.heap, usage.heap],
-                    nonHeap:[...state.nonHeap, usage.nonHead]
-                };
-                return {
-                    state: newState,
-                    display: pause ? display : newState,
-                };
-            });
-        },
-        1000
-    ), [monitor, pause]);
+    useEffect(() => {
+        return monitor.listen(
+            Monitoring.DataTypeName.memory,
+            memoryData => {
+                setMemoryUsage(({ state, display }) => {
+                    const usage = {
+                        heap: {
+                            x: Date.now(),
+                            y: memoryData.heapMemoryUsage.used,
+                        },
+                        nonHead: {
+                            x: Date.now(),
+                            y: memoryData.nonHeapMemoryUsage.used,
+                        } 
+                    };
+        
+                    if(state.heap.length > 40) { // NOTE(YB):we need a constant to indecate how many points we want the chart to hold
+                        state.heap.shift();
+                        state.nonHeap.shift();
+                    }
+                    if(usage.heap.y > 1000) setMemoryWarnning(true);
+                    const newState = {
+                        heap:[...state.heap, usage.heap],
+                        nonHeap:[...state.nonHeap, usage.nonHead]
+                    };
+                    return {
+                        state: newState,
+                        display: pause ? display : newState,
+                    };
+                });
+            },
+            1000
+        )
+    } , [monitor, pause]);
     const colors  = {
         gridLines : "#4b4b4b",
         fontColor: "#e9e9e9",
@@ -161,7 +163,7 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
         <div className="memory-chart" style={style}>
             <h3 className="memory-chart__header">java instance memory usage</h3>
             <div className="chart">
-                <Line data={data} options={options} height={350}/>
+                <Line data={data} options={options}/>
             </div>
         </div>
     )

@@ -7,6 +7,11 @@ import Grid from './grid';
 import DBActions from './DBActions';
 import { DBContext } from './DBConext';
 import { Monitor } from './api/monitor';
+import System from './system';
+import DBHealth from './DBHealth';
+import Profiling from './profiling';
+import Info from './info';
+import Caches from './caches';
 
 const monitor = new Monitor('/endpoint');
 
@@ -19,11 +24,15 @@ const MonitoringDashboard = () => {
     return (
         <Grid>
             <DBContext.Provider value={{ monitorContext, setMonitorContext }}>
+                <Info gridArea="info"/>
                 <DBState gridArea="DBState" />
                 <DBActions gridArea="dbActions" />
                 <MemoryChart gridArea="memoryChart" />
                 <DiskSpace gridArea="diskSpace" />
-                {/* <DBHealth gridArea="dbHealth"></DBHealth> */}
+                <DBHealth gridArea="dbHealth" />
+                <Profiling gridArea="profiling" />
+                <System gridArea="system"/>
+                <Caches grdidArea="cache" />
             </DBContext.Provider>
         </Grid>
     )

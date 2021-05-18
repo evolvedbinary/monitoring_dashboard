@@ -6,12 +6,18 @@
     padding: 1rem;
     gap: 1rem;
     align-items: flex-start;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4,1fr); 
+    // grid-template-columns: 3fr 1fr; 
     grid-template-areas: 
-    "DBState DBState DBState dbActions"
-    "memoryChart memoryChart memoryChart dbActions "
-    "memoryChart memoryChart memoryChart diskSpace "
-    "memoryChart memoryChart memoryChart dbHealth";
+    "DBState    DBState     DBState       info"
+    "DBState    DBState     DBState        dbActions"
+    "memoryChart    memoryChart memoryChart    dbActions"
+    "memoryChart    memoryChart memoryChart    dbHealth"
+    "memoryChart    memoryChart memoryChart    diskSpace"
+    ".   .      .     cache"
+    "profiling       profiling profiling profiling"
+    "system         system system system"
+    ;
 
     & > * {
         background: var(--theia-quickInput-background); 
@@ -25,7 +31,7 @@
     display: flex;
     flex-direction: column;
     .chart {
-        height: 400px;
+        height: 475px;
     }
 }
 

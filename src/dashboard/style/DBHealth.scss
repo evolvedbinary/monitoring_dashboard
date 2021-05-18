@@ -1,0 +1,36 @@
+.health {
+    display:flex;
+    position: relative;
+    flex-direction:column;
+    align-items:center;
+    &-chart {
+        position: relative;
+        .percentage {
+            position: absolute;
+            content: "";
+            top: 42%;
+            left: 41%;
+            font-size: 2rem;
+        }
+    }
+
+    &:hover {
+        .popup {
+            display: block;
+        }
+    }
+}
+
+.popup {
+    position: absolute;
+    content: "";
+    display: none;
+    background: rgba(75, 57, 179, 0.9);
+    color: rgb(209, 199, 199);
+    font-size: 1.6rem;
+    border-radius: 10px;
+    z-index: 1;
+    padding: 1rem;
+    top: 5%;
+    width: max-content;
+}

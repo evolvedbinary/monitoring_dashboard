@@ -1,0 +1,46 @@
+body {
+    display: block;
+}
+
+#root {
+    max-width: 100vw;
+}
+
+.heatmap {
+    padding: 1rem;
+    display: flex;
+    font-size: 2rem;
+    color: #e9e9e9;
+
+    .column {
+        display: grid;
+        width: 130px;
+        grid-template-rows: repeat(3, 100px);
+    }
+    .square {
+        border: 3px solid #ccc;
+        border-radius: 10px;
+        background: rgb(70, 67, 125);
+        background: linear-gradient(162deg, rgba(70, 67, 125, 1) 3%, rgba(9, 9, 121, 1) 77%, rgba(6, 27, 80, 1) 100%);
+    }
+    // .legend {
+    //     margin-left: auto;
+    // }
+
+    span {
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.color {
+    &-scheme {
+        display: flex;
+        flex-direction: column;
+    }
+    &-block {
+        font-size: 1.3rem;
+    }
+}

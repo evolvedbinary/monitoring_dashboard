@@ -7,6 +7,30 @@ body {
     max-width: 1500px;
 }
 
+/*
+171, 200, 192 => #ABC8C0
+232, 153, 141 => E8998D
+253, 231, 76 => FD998D
+32, 163, 158 => 20A39E
+236, 70, 70 // warnning
+137, 99, 186 => 8963BA
+0, 148, 198 => 0094C6
+
+ CSV 
+abc8c0,e8998d,fd998d,156064,20a39e,8963ba,0094c6
+
+ Array 
+["abc8c0","e8998d","fd998d","156064","20a39e","8963ba","0094c6"]
+
+ Object 
+{"Opal":"abc8c0","Vivid Tangerine":"e8998d","Vivid Tangerine 2":"fd998d","Skobeloff":"156064","Light Sea Green":"20a39e","Amethyst":"8963ba","Blue NCS":"0094c6"}
+
+ Extended Array 
+[{"name":"Opal","hex":"abc8c0","rgb":[171,200,192],"cmyk":[15,0,4,22],"hsb":[163,15,78],"hsl":[163,21,73],"lab":[78,-11,1]},{"name":"Vivid Tangerine","hex":"e8998d","rgb":[232,153,141],"cmyk":[0,34,39,9],"hsb":[8,39,91],"hsl":[8,66,73],"lab":[71,28,19]},{"name":"Vivid Tangerine","hex":"fd998d","rgb":[253,153,141],"cmyk":[0,40,44,1],"hsb":[6,44,99],"hsl":[6,97,77],"lab":[73,36,22]},{"name":"Skobeloff","hex":"156064","rgb":[21,96,100],"cmyk":[79,4,0,61],"hsb":[183,79,39],"hsl":[183,65,24],"lab":[37,-20,-9]},{"name":"Light Sea Green","hex":"20a39e","rgb":[32,163,158],"cmyk":[80,0,3,36],"hsb":[178,80,64],"hsl":[178,67,38],"lab":[61,-34,-7]},{"name":"Amethyst","hex":"8963ba","rgb":[137,99,186],"cmyk":[26,47,0,27],"hsb":[266,47,73],"hsl":[266,39,56],"lab":[49,33,-40]},{"name":"Blue NCS","hex":"0094c6","rgb":[0,148,198],"cmyk":[100,25,0,22],"hsb":[195,100,78],"hsl":[195,100,39],"lab":[57,-15,-35]}]
+
+
+*/
+
 :root {
     --theia-foreground: #cccccc;
     --theia-errorForeground: #f48771;
