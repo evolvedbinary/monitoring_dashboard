@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2';
 import * as chartjs from 'chart.js';
 import { Monitoring } from './api/classes';
-import { DBContext } from './DBConext';
+import { DBContext } from './DBContext';
 
 interface StateWidgetProps {
     state: string,
@@ -77,7 +77,7 @@ const options: chartjs.ChartOptions = {
                 },
                 ticks: {
                     fontColor: colors.fontColor,
-                    callback: (value: string, idx: number, vlaues: string[]) => {
+                    callback: (value: string, idx: number, values: string[]) => {
                         return `${value}%`
                     },
                 }
@@ -99,9 +99,9 @@ const data = (color): chartjs.ChartData => {
     }
 }
 
-const TranscationChart: React.FC = () => {
+const TransactionsChart: React.FC = () => {
     return <>
-        <h3>Transcation</h3>
+        <h3>Transactions</h3>
         <Line data={data("232, 153, 141")} options={options} />
     </>
 }
@@ -165,16 +165,11 @@ const DBState: React.FC<StateProps> = (props) => {
     return (
         <div style={style}>
             <div className="db-state">
-                <StateWidget state="danger" title="Transaction/Second" value={queries.running} />
+                <StateWidget state="danger" title="Transaction" value={queries.running} />
                 <StateWidget state="healthy" title="running queries" value={threads.active} />
-                <StateWidget state="healthy" title="number of connections" value={connections.active} />
-                <StateWidget state="warnning" title="waiting queries" value={threads.waiting} />
+                <StateWidget state="healthy" title="connections" value={connections.active} />
+                <StateWidget state="warning" title="waiting queries" value={threads.waiting} />
             </div>
-            { true &&
-                <div className="db-state__chart">
-                    {/* <TranscationChart /> */}
-                </div>
-            }
         </div>
     )
 }

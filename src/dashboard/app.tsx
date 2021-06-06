@@ -5,13 +5,18 @@ import MemoryChart from './memoryChart';
 import DiskSpace from './diskSpace'
 import Grid from './grid';
 import DBActions from './DBActions';
-import { DBContext } from './DBConext';
+import { DBContext } from './DBContext';
 import { Monitor } from './api/monitor';
 import System from './system';
 import DBHealth from './DBHealth';
 import Profiling from './profiling';
 import Info from './info';
 import Caches from './caches';
+import ActiveQueries from './activeQueries';
+import History from './history';
+import TPSGraph from './tpsGraph';
+import NumberOfConnectionsGraph from './nbrOfConnectionsGraph';
+import ActiveQueriesGraph from './activeQueriesGraph';
 
 const monitor = new Monitor('/endpoint');
 
@@ -32,7 +37,12 @@ const MonitoringDashboard = () => {
                 <DBHealth gridArea="dbHealth" />
                 <Profiling gridArea="profiling" />
                 <System gridArea="system"/>
-                <Caches grdidArea="cache" />
+                <Caches gridArea="cache" />
+                <ActiveQueries gridArea="activeQueries"/>
+                <History gridArea="history" />
+                <TPSGraph gridArea="tpsGraph"/>
+                <NumberOfConnectionsGraph gridArea="nbrofcGraph"/>
+                <ActiveQueriesGraph gridArea="aqGraph"/>
             </DBContext.Provider>
         </Grid>
     )

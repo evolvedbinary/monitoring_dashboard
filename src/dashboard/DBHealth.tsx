@@ -1,53 +1,53 @@
-import * as React from 'react'
+import * as React from 'react';
+import { useContext , useState } from 'react';
 import * as chartjs from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import { fromEvent } from 'rxjs';
-import { bufferTime, filter, finalize, map, repeat, switchAll, takeUntil, tap, throttleTime } from 'rxjs/operators';
+import { ChartData, Doughnut } from 'react-chartjs-2';
+import { DBContext } from './DBContext';
 
-interface HealthProps {
+interface DBHealthProps {
     gridArea: string
 }
 
-const options: chartjs.ChartOptions = {
-    responsive: false,
-    cutoutPercentage: 70,
-    tooltips: {
-        enabled: false
-    }
-};
+const DBHealth: React.FC<DBHealthProps> = (props) => {
+    const [diskUsage, setDiskUsage] = useState([0, 100]);
+    const { monitorContext: { monitor, pause } } = useContext(DBContext);
+    const diskColor = diskUsage[0] < 50 ? 'rgba(97, 177, 90,0.9)'
+        : diskUsage[0] < 90 ? 'rgba(239, 123, 69,0.9)'
+            : 'rgba(236, 70, 70,0.9)';
 
-const data = (color: string, percentage: number): chartjs.ChartData => {
-    return {
+    const data: ChartData<chartjs.ChartData> = {
         datasets: [
             {
-                data: [percentage, 100 - percentage],
-                backgroundColor: [color, "rgba(255, 255, 255, 1)",],
+                data: diskUsage,
+                backgroundColor: [diskColor, "rgba(255, 255, 255, 1)",],
                 borderWidth: 0,
             },
         ]
-    }
-};
+    };
 
-const DBHealth: React.FC<HealthProps> = (props) => {
+
+    const options: any = {
+        responsive: false,
+        rotation: 1 * Math.PI,
+        circumference: 1 * Math.PI,
+        cutoutPercentage: 80,
+        tooltips: {
+            enabled: false
+        }
+    };
+
     const style: React.CSSProperties = {
         gridArea: props.gridArea,
     }
-    const [health, setHealth] = React.useState(30);
-
-    const dbHealthColor = health < 50 ? 'rgba(97, 177, 90,0.9)'
-        : health < 90 ? 'rgba(239, 123, 69,0.9)'
-            : 'rgba(236, 70, 70,0.9)';
-
     return (
-        <div style={style} className="health">
-            <div className="popup" >
-                some text
-                and alot of details about the disk
-            </div>
-            <h3>Databse Health</h3>
-            <div className="health-chart">
-                <span className="percentage">{health}%</span>
-                <Doughnut data={data(dbHealthColor, health)} options={options} />
+        <div className="disk-space" style={style}>
+            <div className="widget">
+                <h3 className="disk-text">Database Health</h3>
+                {/* <canvas ref={chartRef} width="300px" height="150px" className="disk-canvas"> */}
+                <div style={{ width: 300, height: 150 }} className="disk-canvas">
+                    <Doughnut data={data} options={options} width={300} height={150} />
+                </div>
+                <span className="disk-space__percentage">{diskUsage[0]}%</span>
             </div>
         </div>
     )

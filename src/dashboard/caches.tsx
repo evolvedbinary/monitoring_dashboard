@@ -9,17 +9,18 @@ const Legend = () => {
                 <h4>0</h4>
                 {colorScheme.map((color, idx) => {
                     return (
-                        <span className="color-block" style={{ background: color }}></span>
+                        <span key={idx} className="color-block" style={{ background: color }}></span>
                     );
                 })}
                 <h4>100%</h4>
             </div>
-            <h4>Cache Size: XX mb</h4>
-            <h4>Collection Cache: XX mb</h4>
+            <h4>cache size: XX MB</h4>
+            <h4>collection cache: XX MB</h4>
         </>
     )
 }
 
+// TODO(YB): add types for the props
 const Cache = (props) => {
     const total = props.hits + props.misses;
     const hitRatio = ((props.hits / total) * 100).toFixed(1);
@@ -38,7 +39,7 @@ const Cache = (props) => {
                 </div>
             </span>
             <span className="square" style={{background:hitColor,color:hitTextColor}}>
-                {hitRatio}%
+                {hitRatio}
                 <div className="popup">
                     <p>
                         {props.hits} hits
@@ -58,13 +59,13 @@ const HeatMap = () => {
         <div className="heatmap">
             {/* label */}
             <div className="column">
-                <span>used (mb)</span>
-                <span>Hits</span>
+                <span>used (MB)</span>
+                <span>hit ratio (%)</span>
             </div>
             <Cache name="DOM" size={96} totalSize={96} hits={100221} misses={174}/>
-            <Cache name="Starcure" size={216} totalSize={216} hits={5} misses={297}/>
-            <Cache name="collections" size={21} totalSize={64} hits={51041} misses={1}/>
-            <Cache name="values" size={20} totalSize={64} hits={2312} misses={1}/>
+            <Cache name="Structure" size={216} totalSize={216} hits={5} misses={297}/>
+            <Cache name="Collections" size={21} totalSize={64} hits={51041} misses={1}/>
+            <Cache name="Values" size={20} totalSize={64} hits={2312} misses={1}/>
 
         </div>
     );
@@ -73,7 +74,7 @@ const HeatMap = () => {
 
 const Caches = (props) => {
     const style: React.CSSProperties = {
-        gridArea: props.grdidArea,
+        gridArea: props.gridArea,
     }
     return (
         <div style={style}>

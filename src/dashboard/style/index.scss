@@ -4,6 +4,7 @@ h3 {
     font-size: 2rem;
     padding: 0;
     margin: 0;
+    margin-bottom: 1rem;
 }
 
 h4 {
@@ -14,6 +15,6 @@ h4 {
 @import "./StateWidget.scss";
 @import "./diskSpace.scss";
 @import "./DBActions.scss";
-@import "./DBHealth.scss";
 @import "./profiling.scss";
 @import "./caches.scss";
+@import "./activeQueries.scss";

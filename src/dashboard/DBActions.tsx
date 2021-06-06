@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react'
-import { DBContext } from './DBConext'
+import { DBContext } from './DBContext'
 
 interface ButtonProps {
     text:string,
@@ -37,7 +37,7 @@ const DBActions : React.FC<ActionProps> = (props) => {
         <div className="db-actions" style={style}>
             {/* <DBButton icon="search" grid="trace" text="trace" clicked={monitorContext.trace} onClick={() => setMonitorContext({ ...monitorContext, trace: !monitorContext.trace })}/> */}
             <DBButton icon="pause" grid="pause" text="pause" clicked={monitorContext.pause} onClick={() => setMonitorContext({ ...monitorContext, pause: !monitorContext.pause })}/>
-            <DBButton icon="bolt" grid="clear" text="Preform GC" clicked={false}/>
+            <DBButton icon="bolt" grid="clear" text="Perform GC" clicked={false}/>
         </div>
     )
 }

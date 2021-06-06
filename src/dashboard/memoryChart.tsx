@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import * as chartjs from 'chart.js';
 import { ChartData, Line } from 'react-chartjs-2';
-import { DBContext } from './DBConext';
+import { DBContext } from './DBContext';
 import { Monitoring } from './api/classes';
 
 type MemoryUsage = { heap: {x:number,y:number}[], nonHeap: {x:number,y:number}[] };
@@ -12,7 +12,7 @@ interface MemoryChartProps {
 
 const MemoryChart : React.FC<MemoryChartProps> = (props) => {
     const [memoryUsage, setMemoryUsage] = useState<{ state: MemoryUsage, display: MemoryUsage }>({ state: {heap:[],nonHeap:[]}, display: {heap:[],nonHeap:[]} });
-    const [memoryWarnning, setMemoryWarnning] = useState(false);
+    const [memoryWarning, setMemoryWarning] = useState(false);
     const { monitorContext: { monitor, pause } } = useContext(DBContext);
 
 
@@ -32,11 +32,11 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
                         } 
                     };
         
-                    if(state.heap.length > 40) { // NOTE(YB):we need a constant to indecate how many points we want the chart to hold
+                    if(state.heap.length > 40) { // NOTE(YB):we need a constant to indicate how many points we want the chart to hold
                         state.heap.shift();
                         state.nonHeap.shift();
                     }
-                    if(usage.heap.y > 1000) setMemoryWarnning(true);
+                    if(usage.heap.y > 1000) setMemoryWarning(true);
                     const newState = {
                         heap:[...state.heap, usage.heap],
                         nonHeap:[...state.nonHeap, usage.nonHead]
@@ -85,8 +85,8 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
         responsive: true,
         maintainAspectRatio:false,
         title:{
-            display:memoryWarnning,
-            text:"Warnning Approaching Max Memory",
+            display:memoryWarning,
+            text:"Warning Approaching Max Memory",
             fontColor:"rgba(236, 70, 70,0.9)",
             fontSize:20,
         },
@@ -143,7 +143,7 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
                     },
                     ticks:{
                         fontColor: colors.fontColor,
-                        callback:(value:string,idx:number,vlaues:string[]) => {
+                        callback:(value:string,idx:number,values:string[]) => {
                             const tick = Math.round(+value / 1024 / 1024 / 1024)
                             return `${tick} MB`
                         },
@@ -161,7 +161,7 @@ const MemoryChart : React.FC<MemoryChartProps> = (props) => {
 
     return (
         <div className="memory-chart" style={style}>
-            <h3 className="memory-chart__header">java instance memory usage</h3>
+            <h3 className="memory-chart__header">Java Memory</h3>
             <div className="chart">
                 <Line data={data} options={options}/>
             </div>

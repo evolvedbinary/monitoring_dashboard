@@ -1,7 +1,8 @@
 
 .db-state {
     // color: #e9e9e9;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     grid-template-columns: repeat(4,1fr);
     gap: 1rem;
     

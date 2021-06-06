@@ -9,14 +9,16 @@
     grid-template-columns: repeat(4,1fr); 
     // grid-template-columns: 3fr 1fr; 
     grid-template-areas: 
-    "DBState    DBState     DBState       info"
-    "DBState    DBState     DBState        dbActions"
-    "memoryChart    memoryChart memoryChart    dbActions"
-    "memoryChart    memoryChart memoryChart    dbHealth"
-    "memoryChart    memoryChart memoryChart    diskSpace"
-    ".   .      .     cache"
-    "profiling       profiling profiling profiling"
-    "system         system system system"
+    "DBState        DBState         DBState           info"
+    "DBState        DBState         DBState           dbActions"
+    "memoryChart    memoryChart     memoryChart       dbActions"
+    "memoryChart    memoryChart     memoryChart       dbHealth"
+    "memoryChart    memoryChart     memoryChart       diskSpace"
+    "activeQueries  activeQueries   activeQueries     cache"
+    "profiling      profiling       profiling         profiling"
+    "system         system          system            system"
+    "history        history         tpsGraph          tpsGraph"
+    "nbrofcGraph    nbrofcGraph     aqGraph           aqGraph"
     ;
 
     & > * {

@@ -2,11 +2,9 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import * as chartjs from 'chart.js';
 import { ChartData, Doughnut } from 'react-chartjs-2';
-import { DBContext } from './DBConext';
+import { DBContext } from './DBContext';
 import { Monitoring } from './api/classes';
 import { DUMMY_CONSTS } from './api/dummy';
-import { from, fromEvent, of } from 'rxjs';
-import { buffer, last, map, mergeAll, repeat, switchAll, take, takeUntil, throttle, throttleTime } from 'rxjs/operators';
 
 interface DiskSpaceProps {
     gridArea: string
@@ -61,7 +59,7 @@ const DiskSpace: React.FC<DiskSpaceProps> = (props) => {
                 <div style={{ width: 300, height: 150 }} className="disk-canvas">
                     <Doughnut data={data} options={options} width={300} height={150} />
                 </div>
-                <span className="disk-space__precentage">{diskUsage[0]}%</span>
+                <span className="disk-space__percentage">{diskUsage[0]}%</span>
             </div>
         </div>
     )
