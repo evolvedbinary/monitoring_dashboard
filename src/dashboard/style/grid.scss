@@ -11,7 +11,7 @@ $dark-background: #1e1e1e;
     color: $text-color;
     font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px;
-    font-size: $base-font-size;
+    // font-size: $base-font-size;
 
     & > * {
         background: $background;
@@ -27,6 +27,7 @@ $dark-background: #1e1e1e;
     "active-q       active-q        active-q        actions"
     "active-q       active-q        active-q        health"
     ".              .               .               disk"
+    ".              .               .               caches"
     ;
 
 }
@@ -39,7 +40,7 @@ $dark-background: #1e1e1e;
         "state          state           info"
         "active-q       active-q        actions"
         "active-q       active-q        health"
-        ".              .               disk"
+        "caches              .          disk"
         ;
     }
 }
@@ -52,6 +53,7 @@ $dark-background: #1e1e1e;
         "info           actions"
         "active-q       active-q"
         "health         disk"
+        "caches         ."
         ;
     }
 }
@@ -61,10 +63,13 @@ $dark-background: #1e1e1e;
 .popup {
     display: none;
     position: absolute;
-    background: #252526e3;
+    background: #252526f1;
     padding: 1rem;
     border-radius: 15px;
-    inset: 1rem;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1;
+    color: #fff;
 }
 
 .icon {
@@ -79,6 +84,9 @@ h3 {
     margin-bottom: 1rem;
 }
 
+h4 {
+    margin: 0;
+}
 
 table {
     text-align: center;
