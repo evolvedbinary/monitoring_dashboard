@@ -1,22 +1,41 @@
+$title-font-size: 3rem;
+$value-font-size: 5rem;
 
-.db-state {
-    // color: #e9e9e9;
+.dbState {
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(4,1fr);
     gap: 1rem;
-    
-    &__header {
-        text-align: center;
-    }
 
-    &__chart {
-        margin-top: 0.5rem;
-        max-height: 200px;
-        padding: 1.25rem;        
+    .state {
+        padding: 1rem;
+        border-radius: 15px;
+        border: 3px #ccc solid;
+        text-align: center;
+        flex-grow: 1;
+        min-width: min-content;
+
+        display: flex;
+        flex-flow: column nowrap;
+
+
+        .title {
+            font-size: $title-font-size;
+        }
+
+        .value {
+            font-size: $value-font-size;
+        }
     }
 }
 
-.state-widget {
-    cursor: pointer;
+.danger {
+    background: #ec4646;
+}
+
+.warning {
+    background: #EF7B45;
+}
+
+.healthy {
+    background: rgb(97, 177, 90);
 }

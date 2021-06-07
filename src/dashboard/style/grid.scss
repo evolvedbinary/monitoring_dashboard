@@ -1,39 +1,23 @@
-.grid {
-    // max-width: 1524px;
+// sizes
+$base-font-size: 2rem;
+
+
+// colors
+$text-color:#e9e9e9;
+$background: #252526; 
+
+.grid-container {
+    color: $text-color;
     font-family: sans-serif;
-    color: var(--theia-foreground);
-    display: grid;
-    padding: 1rem;
-    gap: 1rem;
-    align-items: flex-start;
-    grid-template-columns: repeat(4,1fr); 
-    // grid-template-columns: 3fr 1fr; 
-    grid-template-areas: 
-    "DBState        DBState         DBState           info"
-    "DBState        DBState         DBState           dbActions"
-    "memoryChart    memoryChart     memoryChart       dbActions"
-    "memoryChart    memoryChart     memoryChart       dbHealth"
-    "memoryChart    memoryChart     memoryChart       diskSpace"
-    "activeQueries  activeQueries   activeQueries     cache"
-    "profiling      profiling       profiling         profiling"
-    "system         system          system            system"
-    "history        history         tpsGraph          tpsGraph"
-    "nbrofcGraph    nbrofcGraph     aqGraph           aqGraph"
-    ;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    font-size: $base-font-size;
 
     & > * {
-        background: var(--theia-quickInput-background); 
+        background: $background;
         padding: 1rem;
-        border-radius: 10px;
     }
-    
-}
 
-.memory-chart {
-    display: flex;
-    flex-direction: column;
-    .chart {
-        height: 475px;
-    }
-}
+    display: grid;
 
+}

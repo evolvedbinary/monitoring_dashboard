@@ -1,20 +1,2 @@
-h3 {
-    font-weight: 300;
-    text-align: center;
-    font-size: 2rem;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 1rem;
-}
-
-h4 {
-    margin: 0.2rem 0;
-}
 @import "./grid.scss";
-@import "./DBState.scss";
-@import "./StateWidget.scss";
-@import "./diskSpace.scss";
-@import "./DBActions.scss";
-@import "./profiling.scss";
-@import "./caches.scss";
-@import "./activeQueries.scss";
+@import "./dbState.scss";
