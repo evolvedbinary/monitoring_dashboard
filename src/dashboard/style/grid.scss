@@ -32,6 +32,31 @@ $dark-background: #1e1e1e;
 }
 
 
+@media all and (max-width:1500px){
+    .grid-container {
+        grid-template-columns: repeat(3,1fr);
+        grid-template-areas:
+        "state          state           info"
+        "active-q       active-q        actions"
+        "active-q       active-q        health"
+        ".              .               disk"
+        ;
+    }
+}
+
+@media all and (max-width:1300px){
+    .grid-container {
+        grid-template-columns: repeat(2,1fr);
+        grid-template-areas:
+        "state          state"
+        "info           actions"
+        "active-q       active-q"
+        "health         disk"
+        ;
+    }
+}
+
+
 // utility classes
 .popup {
     display: none;
@@ -67,6 +92,9 @@ table td,
 table th {
     border: 1px solid #ccc;
     padding: 8px;
+    max-width: 25vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 table th {

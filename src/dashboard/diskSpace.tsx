@@ -10,7 +10,7 @@ const DiskSpace : React.FC<{ gridArea: string }> = (props) => {
         <div className="disk-space" style={style}>
             <h3>Disk Space</h3>
             <div className="chart">
-                <Doughnut value={40}/>
+                <Doughnut value={90}/>
             </div>
         </div>
     )
