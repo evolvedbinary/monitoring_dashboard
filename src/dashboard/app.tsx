@@ -1,11 +1,21 @@
 import React from 'react';
-import DBState from './dbState';
+import Info from './info';
+import State from './state';
 import Grid from './grid';
+import Actions from './actions';
+import Health from './health';
+import ActiveQueries from './activeQueries';
+import DiskSpace from './diskSpace';
 
 const App = () => {
     return (
         <Grid>
-            <DBState />
+            <State gridArea="state"/>
+            <Info gridArea="info"/>
+            <Actions gridArea="actions"/>
+            <Health gridArea="health" />
+            <ActiveQueries gridArea="active-q" />
+            <DiskSpace gridArea="disk" />
         </Grid>
     )
 }

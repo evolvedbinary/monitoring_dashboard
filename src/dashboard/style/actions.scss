@@ -1,0 +1,23 @@
+.actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    .button {
+        padding: 1rem 2rem;
+        background: $dark-background;
+        border-radius: 15px;
+        text-align: center;
+        cursor: pointer;
+        flex-grow: 1;
+
+        &:hover {
+            filter: brightness(1.4);
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+        }
+    }
+}

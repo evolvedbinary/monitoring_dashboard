@@ -1,0 +1,10 @@
+.doughnut {
+    position: relative;
+
+    .percentage {
+        position: absolute;
+        bottom: 5%;
+        left: calc(50% - 3.5rem);
+        font-size: 3.5rem;
+    }
+}
