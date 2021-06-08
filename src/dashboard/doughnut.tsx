@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 
 const Doughnut : React.FC<{value: number}> = (props) => {
-    const ref = useRef();
+    const ref = useRef<HTMLCanvasElement>(null);
+    
     const [Usage, setUsage] = useState([props.value, 100 - props.value]);
     const Color = Usage[0] < 50 ? 'rgba(97, 177, 90,0.9)'
         : Usage[0] < 90 ? 'rgba(239, 123, 69,0.9)'
@@ -13,7 +14,7 @@ const Doughnut : React.FC<{value: number}> = (props) => {
 
     useEffect(() => {
         if (!ref.current) return;
-        new Chart(ref.current, {
+        const chart = new Chart(ref.current, {
             type: "doughnut",
             data: {
                 datasets: [
@@ -38,6 +39,10 @@ const Doughnut : React.FC<{value: number}> = (props) => {
                 }
             }
         });
+
+        return (() => {
+            chart.destroy();
+        })
     }, []);
     return (
         <div className="doughnut">

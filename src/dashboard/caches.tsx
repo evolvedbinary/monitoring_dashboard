@@ -6,16 +6,16 @@ const Legend = () => {
     return (
         <>
             <div className="color-scheme">
-                <h4>0</h4>
+                <span>0</span>
                 {colorScheme.map((color, idx) => {
                     return (
                         <span key={idx} className="color-block" style={{ background: color }}></span>
                     );
                 })}
-                <h4>100%</h4>
+                <span>100%</span>
             </div>
-            <h4>cache size: XX MB</h4>
-            <h4>collection cache: XX MB</h4>
+            <p>cache size: XX MB</p>
+            <p>collection cache: XX MB</p>
         </>
     )
 }

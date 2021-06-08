@@ -1,6 +1,11 @@
 .doughnut {
     position: relative;
 
+
+    & > canvas {
+        margin: 0 auto;
+    }
+
     .percentage {
         position: absolute;
         bottom: 5%;
