@@ -1,31 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
 
 @import "./grid.scss";
 @import "./State.scss";
 @import "./actions.scss";
 @import "./doughnut.scss";
 @import "./caches.scss";
+@import "./info.scss";
+@import "./table.scss";
 
-
-
-
-
-
-
-
-
-
-// NOTE(YB):this doesnt do much
-// TODO
-.info {
-    font-size: clamp(1rem, 3vw, 2.5rem);
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-    p {
-        margin: 0;
-        padding: 0;
-    }
-}

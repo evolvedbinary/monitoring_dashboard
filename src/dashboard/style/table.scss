@@ -1,0 +1,32 @@
+table {
+    text-align: center;
+    border-collapse: collapse;
+    border: 2px solid #ccc;
+    width: 100%;
+    font-size: 1rem;
+}
+
+table td,
+table th {
+    border: 1px solid #ccc;
+    padding: 8px;
+    max-width: 25vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+table th {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.th {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 25px;
+}
+
+.source {
+    text-align: left;
+}

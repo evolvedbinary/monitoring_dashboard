@@ -110,7 +110,7 @@ const QueryState = (state: string) => {
     };
     return (
         <>
-            <span className="flx">{icon} {state}</span>
+            <span className="flx flx-left">{icon} {state}</span>
         </>
     );
 };
@@ -120,7 +120,7 @@ function renderTableData() {
         const { source, state, waiting, running, killable } = query //destructuring
         return (
             <tr key={index}>
-                <td>{source}</td>
+                <td className="source">{source}</td>
                 <td>{QueryState(state)}</td>
                 <td>{waiting}</td>
                 <td>{running}</td>

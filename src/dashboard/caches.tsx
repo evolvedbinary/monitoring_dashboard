@@ -28,7 +28,6 @@ interface CacheProps {
     name:string
 }
 
-// TODO(YB): add types for the props
 const Cache : React.FC<CacheProps> = (props) => {
     const total = props.hits + props.misses;
     const hitRatio = ((props.hits / total) * 100).toFixed(1);

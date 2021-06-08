@@ -1,0 +1,12 @@
+.info {
+    font-size: clamp(1rem, 3vw, 2.5rem);
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
