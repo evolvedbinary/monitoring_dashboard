@@ -9,6 +9,7 @@ import DiskSpace from './diskSpace';
 import Caches from './caches';
 import Memory from './memory';
 import Machine from './machine';
+import History from './history';
 
 const App = () => {
     return (
@@ -22,6 +23,7 @@ const App = () => {
             <Caches gridArea="caches" />
             <Memory gridArea="memory" />
             <Machine gridArea="machine" />
+            <History gridArea="history" />
         </Grid>
     )
 }

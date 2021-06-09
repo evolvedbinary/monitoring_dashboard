@@ -174,7 +174,7 @@ function renderTableHeader() {
     );
 }
 
-const ActiveQueries: React.FC<{ gridArea: string }> = (props) => {
+const ActiveQueries : React.FC<{ gridArea: string }> = (props) => {
     const style: React.CSSProperties = {
         gridArea: props.gridArea,
         alignSelf:"flex-start",

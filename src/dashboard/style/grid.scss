@@ -27,6 +27,7 @@ $dark-background: #1e1e1e;
     "active-q       active-q        active-q        health"
     "memory         memory          memory          caches"
     "machine        machine         machine         disk"
+    "history        history         .               ."
     ;
 
 }
@@ -39,8 +40,10 @@ $dark-background: #1e1e1e;
         "state          state           info"
         "active-q       active-q        actions"
         "active-q       active-q        health"
-        "memory         memory          disk"
-        "machine        machine         caches"
+        "memory         memory          caches"
+        "machine        machine         disk"
+        "history        history         ."
+
         ;
     }
 }
@@ -54,7 +57,7 @@ $dark-background: #1e1e1e;
         "active-q       active-q"
         "health         disk"
         "memory         memory"
-        "caches         ."
+        "caches         history"
         "machine        machine"
         ;
     }

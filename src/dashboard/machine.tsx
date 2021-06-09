@@ -1,10 +1,10 @@
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Tick } from 'chart.js';
 import React from 'react';
 import Line from './line';
 
 const d = JSON.parse(`[{"x":1618572856609,"y":10},{"x":1618572857606,"y":15},{"x":1618572858607,"y":15},{"x":1618572859604,"y":14},{"x":1618572860602,"y":20},{"x":1618572861610,"y":20},{"x":1618572862604,"y":25},{"x":1618572863606,"y":27},{"x":1618572864610,"y":35},{"x":1618572865606,"y":10}]`)
 
-const data = (color) : ChartData<"line"> => {
+const data = (color): ChartData<"line"> => {
     return {
         datasets: [
             {
@@ -19,11 +19,15 @@ const data = (color) : ChartData<"line"> => {
 }
 
 const options: ChartOptions<"line"> = {
-    plugins:{
-      legend:{
-          display:false
-      }
+    plugins: {
+        legend: {
+            display: false
+        }
     }
+}
+
+const tickFunction = (tickValue: string | number, index: number, ticks: Tick[])  => {
+    return `${tickValue}%`;
   }
 
 
@@ -31,7 +35,7 @@ const options: ChartOptions<"line"> = {
 const MemChart: React.FC = () => {
     return <div>
         <h4>System Memory</h4>
-        <Line data={data("171, 200, 192")} options={options} />
+        <Line data={data("171, 200, 192")} options={options} tickFunction={tickFunction} />
     </div>
 }
 
@@ -39,32 +43,32 @@ const MemChart: React.FC = () => {
 const CpuChart: React.FC = () => {
     return <div>
         <h4>CPU</h4>
-        <Line data={data("232, 153, 141")} options={options} />
+        <Line data={data("232, 153, 141")} options={options} tickFunction={tickFunction} />
     </div>
 }
 // network IO
 const NetChart: React.FC = () => {
     return <div>
         <h4>Network Usage</h4>
-        <Line data={data("253, 231, 76")} options={options} />
+        <Line data={data("253, 231, 76")} options={options} tickFunction={tickFunction} />
     </div>
 }
 
 // disk IO
-const DiskIO : React.FC = () => {
+const DiskIO: React.FC = () => {
     return (
         <div>
             <h4>Disk IO</h4>
-            <Line data={data("32, 163, 158")} options={options} />
+            <Line data={data("32, 163, 158")} options={options} tickFunction={tickFunction} />
         </div>
     )
 }
 
-const Machine : React.FC<{ gridArea: string }> = (props) => {
+const Machine: React.FC<{ gridArea: string }> = (props) => {
     const style: React.CSSProperties = {
-      gridArea: props.gridArea,
+        gridArea: props.gridArea,
     };
-  
+
     return (
         <div className="machine" style={style}>
             <NetChart />
