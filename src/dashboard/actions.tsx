@@ -12,8 +12,8 @@ const bruchIcon = (
 
 const pauseIcon = (
     <svg className="icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10.6954 4.36047H6.6954V20.3605H10.6954V4.36047Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M18.6954 4.36047H14.6954V20.3605H18.6954V4.36047Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M10.6954 4.36047H6.6954V20.3605H10.6954V4.36047Z" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M18.6954 4.36047H14.6954V20.3605H18.6954V4.36047Z" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
